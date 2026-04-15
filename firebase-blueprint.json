@@ -1,0 +1,100 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "App user profile",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "displayName": { "type": "string" },
+        "email": { "type": "string" },
+        "photoURL": { "type": "string" }
+      },
+      "required": ["uid", "displayName"]
+    },
+    "Session": {
+      "title": "Tasting Session",
+      "description": "A group wine tasting event",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "shortId": { "type": "string" },
+        "name": { "type": "string" },
+        "createdBy": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "participants": { "type": "array", "items": { "type": "string" } },
+        "activeWineId": { "type": "string" },
+        "status": { "type": "string", "enum": ["active", "completed"] },
+        "summary": { "type": "string" }
+      },
+      "required": ["name", "createdBy", "createdAt", "participants"]
+    },
+    "Wine": {
+      "title": "Wine",
+      "description": "A wine being tasted",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "sessionId": { "type": "string" },
+        "name": { "type": "string" },
+        "label": { "type": "string" },
+        "order": { "type": "integer" },
+        "revealed": { "type": "boolean" },
+        "analysis": { "type": "string" },
+        "grapeVariety": { "type": "string" },
+        "price": { "type": "number" }
+      },
+      "required": ["sessionId", "name", "order"]
+    },
+    "Rating": {
+      "title": "Rating",
+      "description": "A user's rating for a specific wine",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "wineId": { "type": "string" },
+        "sessionId": { "type": "string" },
+        "score": { "type": "number" },
+        "comment": { "type": "string" },
+        "guessedGrapeVariety": { "type": "string" },
+        "guessedPrice": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "wineId", "sessionId", "score"]
+    },
+    "Message": {
+      "title": "Message",
+      "description": "An anonymous message in the live feed",
+      "type": "object",
+      "properties": {
+        "text": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "anonymousName": { "type": "string" }
+      },
+      "required": ["text", "createdAt", "anonymousName"]
+    }
+  },
+  "firestore": {
+    "/sessions/{sessionId}": {
+      "schema": "Session",
+      "description": "Tasting sessions"
+    },
+    "/sessions/{sessionId}/wines/{wineId}": {
+      "schema": "Wine",
+      "description": "Wines in a session"
+    },
+    "/sessions/{sessionId}/ratings/{ratingId}": {
+      "schema": "Rating",
+      "description": "Ratings for wines in a session"
+    },
+    "/sessions/{sessionId}/messages/{messageId}": {
+      "schema": "Message",
+      "description": "Live feed messages"
+    },
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    }
+  }
+}
