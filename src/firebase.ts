@@ -1,38 +1,19 @@
-import { initializeApp } from 'firebase/app';
-import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from 'firebase/auth';
-import { getFirestore, doc, setDoc, getDoc, getDocs, collection, query, where, onSnapshot, addDoc, updateDoc, serverTimestamp, getDocFromServer } from 'firebase/firestore';
-import firebaseConfig from '../firebase-applet-config.json';
+// Firebase stub — replaced by PostgreSQL + Authelia
+export const auth: any = null;
+export const db: any = null;
+export const googleProvider: any = null;
 
-const app = initializeApp(firebaseConfig);
-export const db = getFirestore(app, firebaseConfig.firestoreDatabaseId);
-export const auth = getAuth(app);
-export const googleProvider = new GoogleAuthProvider();
-
-// Test connection
-async function testConnection() {
-  try {
-    await getDocFromServer(doc(db, 'test', 'connection'));
-  } catch (error) {
-    if (error instanceof Error && error.message.includes('the client is offline')) {
-      console.error("Please check your Firebase configuration.");
-    }
-  }
-}
-testConnection();
-
-export { 
-  signInWithPopup, 
-  signOut, 
-  onAuthStateChanged,
-  doc, 
-  setDoc, 
-  getDoc, 
-  getDocs,
-  collection, 
-  query, 
-  where, 
-  onSnapshot, 
-  addDoc, 
-  updateDoc, 
-  serverTimestamp 
-};
+export const signInWithPopup = async () => {};
+export const signOut = async () => {};
+export const onAuthStateChanged = () => () => {};
+export const doc = () => {};
+export const setDoc = async () => {};
+export const getDoc = async () => ({ exists: () => false, data: () => ({}) });
+export const getDocs = async () => ({ empty: true, docs: [] });
+export const collection = () => {};
+export const query = () => {};
+export const where = () => {};
+export const onSnapshot = () => () => {};
+export const addDoc = async () => ({ id: '' });
+export const updateDoc = async () => {};
+export const serverTimestamp = () => new Date().toISOString();

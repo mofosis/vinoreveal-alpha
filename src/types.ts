@@ -3,7 +3,6 @@ export interface UserProfile {
   displayName: string;
   email?: string;
   photoURL?: string;
-  role?: string;
 }
 
 export interface Session {
@@ -11,12 +10,10 @@ export interface Session {
   shortId: string;
   name: string;
   createdBy: string;
-  createdAt: any;
+  createdAt: string;
   participants: string[];
-  activeWineId?: string;
   status: 'active' | 'completed' | 'terminated';
   summary?: string;
-  hostId?: string;
 }
 
 export interface Wine {
@@ -46,13 +43,13 @@ export interface Rating {
   guessedPrice?: number;
   guessedVintage?: number;
   guessedRegion?: string;
-  createdAt: any;
+  createdAt: string;
 }
 
 export interface Message {
   id: string;
   text: string;
-  createdAt: any;
+  createdAt: string;
   anonymousName: string;
 }
 
@@ -63,23 +60,4 @@ export enum OperationType {
   LIST = 'list',
   GET = 'get',
   WRITE = 'write',
-}
-
-export interface FirestoreErrorInfo {
-  error: string;
-  operationType: OperationType;
-  path: string | null;
-  authInfo: {
-    userId?: string;
-    email?: string | null;
-    emailVerified?: boolean;
-    isAnonymous?: boolean;
-    tenantId?: string | null;
-    providerInfo: {
-      providerId: string;
-      displayName: string | null;
-      email: string | null;
-      photoUrl: string | null;
-    }[];
-  }
 }
