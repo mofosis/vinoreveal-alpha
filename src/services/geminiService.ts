@@ -2,7 +2,7 @@ import { GoogleGenAI } from "@google/genai";
 import { Rating, Wine } from "../types";
 
 function getAIInstance() {
-  const apiKey = process.env.GEMINI_API_KEY || (process.env as any).API_KEY;
+  const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
   if (!apiKey) {
     throw new Error("MISSING_API_KEY");
   }
